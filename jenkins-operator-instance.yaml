@@ -3,13 +3,9 @@ kind: Jenkins
 metadata:
   annotations:
     jenkins.io/openshift-mode: "true"
-  creationTimestamp: "2020-01-17T15:31:09Z"
-  generation: 9
-  name: example
+  generation: 1
+  name: vpogu-sandbox
   namespace: vpogu-sandbox
-  resourceVersion: "807055"
-  selfLink: /apis/jenkins.io/v1alpha2/namespaces/vpogu-sandbox/jenkins/example
-  uid: 62a5260c-393e-11ea-80cd-06449304231e
 spec:
   backup:
     action: {}
@@ -53,7 +49,7 @@ spec:
           - name: OPENSHIFT_ENABLE_REDIRECT_PROMPT
             value: "true"
           - name: DISABLE_ADMINISTRATIVE_MONITORS
-            value: "false"
+            value: "true"
           - name: KUBERNETES_MASTER
             value: "https://kubernetes.default:443"
           - name: KUBERNETES_TRUST_CERTIFICATES
@@ -74,25 +70,21 @@ spec:
         image: "quay.io/openshift/origin-jenkins:latest"
         imagePullPolicy: Always
         livenessProbe:
-          failureThreshold: 3
           httpGet:
             path: /login
             port: 8080
             scheme: HTTP
           initialDelaySeconds: 420
           periodSeconds: 360
-          successThreshold: 1
           timeoutSeconds: 240
         name: jenkins-master
         readinessProbe:
-          failureThreshold: 3
           httpGet:
             path: /login
             port: 8080
             scheme: HTTP
           initialDelaySeconds: 3
-          periodSeconds: 10
-          successThreshold: 1
+          periodSeconds: 0
           timeoutSeconds: 240
         resources:
           limits:
@@ -101,12 +93,8 @@ spec:
           requests:
             cpu: 500m
             memory: 3Gi
-    disableCSRFProtection: false
     securityContext:
-      fsGroup: 1000520000
       runAsUser: 1000520023
-      seLinuxOptions:
-        level: "s0:c23,c7"
   restore:
     action: {}
     containerName: ""
@@ -116,7 +104,3 @@ spec:
   slaveService:
     port: 50000
     type: ClusterIP
-status:
-  operatorVersion: v0.2.2
-  provisionStartTime: "2020-01-17T15:37:52Z"
-  userAndPasswordHash: pAuxEisk490WUKVNdfhoJPxiS0sdBdhNJX51xnGFAtA=
