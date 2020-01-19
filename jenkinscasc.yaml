@@ -1,13 +1,12 @@
 jenkins:
-  markupFormatter:
-    rawHtml:
-      disableSyntaxHighlighting: false
-  primaryView:
-    all:
-      name: "all"
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: true
+  globalNodeProperties:
+    - envVars:
+        env:
+          - key: "jenkinsGitRepo"
+            value: "https://github.com/vikaspogu/jenkins-shared.git"
   unclassified:
     globalLibraries:
       libraries:

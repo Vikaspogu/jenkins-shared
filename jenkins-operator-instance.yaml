@@ -13,7 +13,10 @@ spec:
     interval: 0
     makeBackupBeforePodDeletion: false
   configurationAsCode:
-    configurations: jenkins-operator-user-configuration
+    configurations:
+      - name: jenkins-operator-user-configuration
+    secret:
+      name: ""
   groovyScripts:
     configurations: null
     secret:
@@ -38,6 +41,8 @@ spec:
         version: 0.12.1
       - name: bitbucket-plugin
         version: 1.1.11
+      - name: htmlpublisher-plugin
+        version: 1.21
     containers:
       - command:
           - /usr/bin/go-init
