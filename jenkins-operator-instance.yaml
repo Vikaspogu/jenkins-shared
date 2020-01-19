@@ -14,7 +14,7 @@ spec:
     makeBackupBeforePodDeletion: false
   configurationAsCode:
     configurations:
-      - name: jenkins-operator-user-configuration
+      - name: jenkins-operator-casc-config
     secret:
       name: ""
   groovyScripts:
@@ -41,7 +41,7 @@ spec:
         version: 0.12.1
       - name: bitbucket-plugin
         version: 1.1.11
-      - name: htmlpublisher-plugin
+      - name: htmlpublisher
         version: 1.21
     containers:
       - command:

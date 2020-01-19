@@ -12,16 +12,18 @@ jenkins:
       libraries:
         - defaultVersion: "master"
           implicit: true
-          name: "ocp shared pipeline"
+          name: "ocp-shared-pipeline"
           retriever:
             modernSCM:
               scm:
-                git:
+                github:
                   id: "jenkins-shared"
-                  remote: "https://github.com/vikaspogu/jenkins-shared.git"
+                  repoOwner: "vikaspogu"
+                  repository: "jenkins-shared"
                   traits:
-                    - cloneOptionTrait:
-                        extension:
-                          depth: 1
-                          noTags: true
-                          shallow: true
+                    - branchDiscoveryTrait:
+                        strategyId: 1
+                    - originPullRequestDiscoveryTrait:
+                        strategyId: 1
+                    - forkPullRequestDiscoveryTrait:
+                        strategyId: 1
