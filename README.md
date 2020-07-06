@@ -1,1 +1,1 @@
-# Jenkins Shared pipeline
+# Jenkins Shared Library
