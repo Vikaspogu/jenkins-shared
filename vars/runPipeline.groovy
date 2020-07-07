@@ -47,7 +47,7 @@ def call(body) {
       }
       stage('teardown') {
         steps {
-          container("kubectl"){
+          container("docker"){
             sh'''
                 for i in `cat anchore_images | awk '{print $1}'`;do docker rmi $i; done
             '''
