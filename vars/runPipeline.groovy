@@ -32,23 +32,25 @@ def call(body) {
           }
         }
       }
-      stage('analyze') {
-          steps {
-              sh "echo 'docker.io/vikaspogu/${imageName} Dockerfile' > anchore_images"
-              anchore name: 'anchore_images'
-          }
-      }
-      stage('teardown') {
-          steps {
-              sh'''
-                  for i in `cat anchore_images | awk '{print $1}'`;do docker rmi $i; done
-              '''
-          }
-      }
       stage("push") {
         steps{
           container("docker") {
             sh "DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker push docker.io/vikaspogu/${imageName}"
+          }
+        }
+      }
+      stage('analyze') {
+        steps {
+            sh "echo 'docker.io/vikaspogu/${imageName} Dockerfile' > anchore_images"
+            anchore name: 'anchore_images'
+        }
+      }
+      stage('teardown') {
+        steps {
+          container("kubectl"){
+            sh'''
+                for i in `cat anchore_images | awk '{print $1}'`;do docker rmi $i; done
+            '''
           }
         }
       }
