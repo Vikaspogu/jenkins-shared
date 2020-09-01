@@ -5,7 +5,8 @@ spec:
     beta.kubernetes.io/arch: amd64
   containers:
     - name: docker
-      image: docker:19.03.12
+      # image: docker:19.03.12
+      image: vikaspogu/docker-buildx-qemu:latest
       command:
         - sleep
       args:
