@@ -10,7 +10,7 @@ def call(body) {
   def imageName = "${pipelineParams.imageName}"
   def namespace = "${pipelineParams.namespace}"
   def deploymentName = "${pipelineParams.deploymentName}"
-  def dockerFile = "${pipelineParams?.dockerFile}" ? "${pipelineParams.dockerFile}" : "."
+  def dockerFile = "${pipelineParams?.dockerFile}" ? "${pipelineParams.dockerFile}" : "Dockerfile"
 
   pipeline {
     agent {
@@ -29,7 +29,7 @@ def call(body) {
         steps{
           container("docker") {
               sh "docker run --rm --privileged multiarch/qemu-user-static --reset -p yes"
-              sh "cd `pwd` && DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker build --platform linux/arm64 -t docker.io/vikaspogu/${imageName} ${dockerFile}"
+              sh "cd `pwd` && DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker build --platform linux/arm64 -t docker.io/vikaspogu/${imageName} -f ${dockerFile}"
           }
         }
       }
