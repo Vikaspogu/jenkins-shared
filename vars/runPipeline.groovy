@@ -30,7 +30,7 @@ def call(body) {
           container("docker") {
               // sh "docker run --rm --privileged multiarch/qemu-user-static --reset -p yes"
               // sh "cd `pwd` && DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker build --platform linux/arm32v7 -t docker.io/vikaspogu/${imageName} ${subFolder}"
-              sh "cd `pwd` && docker buildx build --platform linux/arm32v7 -t docker.io/vikaspogu/${imageName} ${subFolder}"
+              sh "cd `pwd` && DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker buildx build --platform linux/arm32v7 -t docker.io/vikaspogu/${imageName} ${subFolder}"
           }
         }
       }
