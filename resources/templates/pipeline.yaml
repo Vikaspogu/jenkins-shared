@@ -5,7 +5,7 @@ spec:
     beta.kubernetes.io/arch: amd64
   containers:
     - name: docker
-      image: vikaspogu/docker-buildx:19.03.12
+      image: docker:19.03.12
       command:
         - sleep
       args:

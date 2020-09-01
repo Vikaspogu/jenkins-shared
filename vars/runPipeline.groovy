@@ -29,8 +29,6 @@ def call(body) {
         steps{
           container("docker") {
               sh "docker run --rm --privileged multiarch/qemu-user-static --reset -p yes"
-              sh "DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker buildx create --use"
-              sh "DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker buildx inspect --bootstrap"
               sh "cd `pwd` && DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker build --platform linux/arm64 -t docker.io/vikaspogu/${imageName} ${subFolder}"
           }
         }
