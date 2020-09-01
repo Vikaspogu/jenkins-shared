@@ -14,7 +14,6 @@ spec:
       volumeMounts:
         - name: jenkins-docker-cfg
           mountPath: /root/.docker
-          subPath: config.json
       env:
         - name: DOCKER_HOST
           value: tcp://localhost:2375
