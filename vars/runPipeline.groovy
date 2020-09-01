@@ -42,7 +42,7 @@ def call(body) {
       }
       stage('analyze') {
         steps {
-            sh "echo 'docker.io/vikaspogu/${imageName} subFolder' > anchore_images"
+            sh "echo 'docker.io/vikaspogu/${imageName} Dockerfile' > anchore_images"
             anchore name: 'anchore_images', bailOnFail: false
         }
       }
