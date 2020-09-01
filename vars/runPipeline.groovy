@@ -10,7 +10,7 @@ def call(body) {
   def imageName = "${pipelineParams.imageName}"
   def namespace = "${pipelineParams.namespace}"
   def deploymentName = "${pipelineParams.deploymentName}"
-  def dockerFile = "${pipelineParams?.dockerFile}" ? "${pipelineParams.dockerFile}" : "Dockerfile"
+  def subFolder = "${pipelineParams?.subFolder}" ? "${pipelineParams.subFolder}" : "."
 
   pipeline {
     agent {
@@ -29,7 +29,7 @@ def call(body) {
         steps{
           container("docker") {
               sh "docker run --rm --privileged multiarch/qemu-user-static --reset -p yes"
-              sh "cd `pwd` && DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker build --platform linux/arm64 -t docker.io/vikaspogu/${imageName} -f ${dockerFile}"
+              sh "cd `pwd` && DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker build --platform linux/arm64 -t docker.io/vikaspogu/${imageName} ${subFolder}"
           }
         }
       }
@@ -42,7 +42,7 @@ def call(body) {
       }
       stage('analyze') {
         steps {
-            sh "echo 'docker.io/vikaspogu/${imageName} Dockerfile' > anchore_images"
+            sh "echo 'docker.io/vikaspogu/${imageName} subFolder' > anchore_images"
             anchore name: 'anchore_images', bailOnFail: false
         }
       }
