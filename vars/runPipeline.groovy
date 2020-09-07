@@ -29,6 +29,7 @@ def call(body) {
         steps{
           container("docker") {
               sh "docker run --rm --privileged multiarch/qemu-user-static --reset -p yes"
+              sh "DOCKER_BUILDKIT=1 docker build --platform=local -o . git://github.com/docker/buildx && mkdir -p ~/.docker/cli-plugins && mv buildx ~/.docker/cli-plugins/docker-buildx"
               sh "DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker buildx create --name mybuilder"
               sh "DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker buildx use mybuilder"
               sh "DOCKER_CLI_EXPERIMENTAL=enabled DOCKER_BUILDKIT=1 docker buildx inspect --bootstrap"
