@@ -10,7 +10,7 @@ def call(body) {
   def imageName = "${pipelineParams.imageName}"
   def namespace = "${pipelineParams.namespace}"
   def deploymentName = "${pipelineParams.deploymentName}"
-  def subFolder = "${pipelineParams.subFolder?}" ?: "."
+  def subFolder = "${pipelineParams.subFolder}" == null ?"${pipelineParams.subFolder}" : "."
 
   pipeline {
     agent {
