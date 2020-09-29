@@ -41,21 +41,6 @@ def call(body) {
           }
         }
       }
-      stage('analyze') {
-        steps {
-            sh "echo 'docker.io/vikaspogu/${imageName} ${subFolder}/Dockerfile' > anchore_images"
-            anchore name: 'anchore_images', bailOnFail: false
-        }
-      }
-      stage('teardown') {
-        steps {
-          container("docker"){
-            sh'''
-                for i in `cat anchore_images | awk '{print $1}'`;do docker rmi $i; done
-            '''
-          }
-        }
-      }
       stage("deployment"){
         steps{
           container("kubectl"){
